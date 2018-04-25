@@ -1,0 +1,1 @@
+This Android app allows users to add a list of all of the items/areas they need to clean and randomly selects one for each day. It includes a timer that determines how long the user should spend cleaning each item.
