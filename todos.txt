@@ -1,0 +1,7 @@
+Data:
+-Send dummy cleaning item from service --> display on daily cleaning items screen
+-User input
+	-Form with room, item, and actions
+
+Timer:
+-Show countdown from 5 with cleaning item
