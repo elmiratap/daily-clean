@@ -10,8 +10,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -22,18 +22,23 @@ public class DailyCleaningItem extends AppCompatActivity {
         setContentView(R.layout.activity_daily_cleaning_item);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        Menu bottomNavigationMenu = bottomNavigationView.getMenu();
+        MenuItem bottomNavigationMenuItem = bottomNavigationMenu.getItem(1);
+        bottomNavigationMenuItem.setChecked(true);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_all_cleaning_items:
-                        Toast.makeText(DailyCleaningItem.this, "Action - all cleaning items clicked", Toast.LENGTH_SHORT).show();
+                        Intent allCleaningItemsIntent = new Intent(DailyCleaningItem.this, AllCleaningItems.class);
+                        startActivity(allCleaningItemsIntent);
                         break;
                     case R.id.menu_daily_cleaning_item:
-                        Toast.makeText(DailyCleaningItem.this, "Action - daily cleaning item clicked", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.menu_timer:
-                        Toast.makeText(DailyCleaningItem.this, "Action - timer clicked", Toast.LENGTH_SHORT).show();
+                    case R.id.menu_daily_cleaning_timer:
+                        Intent dailyCleaningTimerIntent = new Intent(DailyCleaningItem.this, DailyCleaningTimer.class);
+                        startActivity(dailyCleaningTimerIntent);
+                        break;
                 }
                 return true;
             }

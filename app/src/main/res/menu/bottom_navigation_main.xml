@@ -15,7 +15,7 @@
         android:title="Today's Item"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_timer"
+        android:id="@+id/menu_daily_cleaning_timer"
         android:enabled="true"
         android:icon="@drawable/ic_timer"
         android:title="Timer"
