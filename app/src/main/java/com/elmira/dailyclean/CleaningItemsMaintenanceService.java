@@ -25,7 +25,7 @@ public class CleaningItemsMaintenanceService extends IntentService {
         rooms.add(myBedroom);
         // Do the task here
         Log.i("alarm", "inside CleaningItemsService - onHandleIntent");
-        ArrayList<String> actions = rooms.get(0).cleaningItems.get("floors");
+        ArrayList<String> actions = rooms.get(0).getCleaningItems().get("floors");
         for (String action : actions) {
             Log.i("alarm", action);
         }
