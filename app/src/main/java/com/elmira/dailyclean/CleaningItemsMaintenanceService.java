@@ -20,7 +20,7 @@ public class CleaningItemsMaintenanceService extends IntentService {
         ArrayList<String> cleaningActions = new ArrayList<>();
         cleaningActions.add("wash");
         cleaningActions.add("vacuum");
-        Room myBedroom = new Room();
+        Room myBedroom = new Room("my bedroom");
         myBedroom.addCleaningItem("floors", cleaningActions);
         rooms.add(myBedroom);
         // Do the task here

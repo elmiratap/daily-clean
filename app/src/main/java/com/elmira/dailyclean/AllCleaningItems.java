@@ -2,10 +2,10 @@ package com.elmira.dailyclean;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,9 +19,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import com.google.gson.Gson;
 
 public class AllCleaningItems extends AppCompatActivity {
-//    public static String EXTRA_DAILY_CLEANING_ITEM = "com.elmira.dailyclean.EXTRA_DAILY_CLEANING_ITEM";
+    //    public static String EXTRA_DAILY_CLEANING_ITEM = "com.elmira.dailyclean.EXTRA_DAILY_CLEANING_ITEM";
     private ListView listView;
 
 
@@ -30,61 +33,84 @@ public class AllCleaningItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_cleaning_items);
 
-        listView = (ListView)findViewById(R.id.all_cleaning_items_list_view);
+        listView = (ListView) findViewById(R.id.all_cleaning_items_list_view);
         String[] dummyData = {"one", "two", "three", "four", "five"};
         String[] listItems = new String[dummyData.length];
-        for (int i=0; i<listItems.length; i++) {
+        for (int i = 0; i < listItems.length; i++) {
             listItems[i] = dummyData[i];
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
         listView.setAdapter(adapter);
+        final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("CleaningData", MODE_PRIVATE);
+
 
         FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File directory;
-                String fileName = "myfile";
-                String fileContents = "myfile contents";
-                if (fileName.isEmpty()) {
-                    directory = getFilesDir();
-                } else {
-                    directory = getDir(fileName, MODE_PRIVATE);
-                }
-                File[] files = directory.listFiles();
+                Room myBedroom = new Room("my bedroom");
+                System.out.println("my bedroom name: " + myBedroom.getName());
+                ArrayList<String> cleaningActions = new ArrayList<>();
+                cleaningActions.add("wash");
+                cleaningActions.add("vacuum");
+                myBedroom.addCleaningItem("floors", cleaningActions);
 
-                try {
-                    FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-                    outputStream.write(fileContents.getBytes());
-                    outputStream.close();
-                    Toast.makeText(getBaseContext(),"you added a file!", Toast.LENGTH_SHORT).show();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
+                SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(myBedroom);
+                sharedPreferencesEditor.putString("myBedroom", json);
+                sharedPreferencesEditor.apply();
+                Toast.makeText(getBaseContext(), "you added a file!", Toast.LENGTH_SHORT).show();
+
+
+//                File directory;
+//                String fileName = "myfile";
+//                String fileContents = "myfile contents";
+//                if (fileName.isEmpty()) {
+//                    directory = getFilesDir();
+//                } else {
+//                    directory = getDir(fileName, MODE_PRIVATE);
+//                }
+//                File[] files = directory.listFiles();
+//
+//                try {
+//                    FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+//                    outputStream.write(fileContents.getBytes());
+//                    outputStream.close();
+//                    Toast.makeText(getBaseContext(),"you added a file!", Toast.LENGTH_SHORT).show();
+//                } catch(Exception e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         floatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                try {
-                    FileInputStream fileIn=openFileInput("myfile");
-                    InputStreamReader InputRead= new InputStreamReader(fileIn);
-
-                    char[] inputBuffer= new char[100];
-                    String s="";
-                    int charRead;
-
-                    while ((charRead=InputRead.read(inputBuffer))>0) {
-                        // char to string conversion
-                        String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                        s +=readstring;
-                    }
-                    InputRead.close();
-                    Toast.makeText(getBaseContext(),"you read a file!", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Gson gson = new Gson();
+                String cleaningDetails = sharedPreferences.getString("myBedroom", "noData");
+                Room myRoom = gson.fromJson(cleaningDetails, Room.class);
+                System.out.println("cleaningDetails: " + cleaningDetails);
+                System.out.println("myRoom: " + myRoom.getName() + ", item1: " + myRoom.getCleaningItems().get("floors").get(0));
                 return true;
+//                try {
+//                    FileInputStream fileIn = openFileInput("myfile");
+//                    InputStreamReader InputRead = new InputStreamReader(fileIn);
+//
+//                    char[] inputBuffer = new char[100];
+//                    String s = "";
+//                    int charRead;
+//
+//                    while ((charRead = InputRead.read(inputBuffer)) > 0) {
+//                        // char to string conversion
+//                        String readstring = String.copyValueOf(inputBuffer, 0, charRead);
+//                        s += readstring;
+//                    }
+//                    InputRead.close();
+//                    Toast.makeText(getBaseContext(), "you read a file!", Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                return true;
             }
         });
 
