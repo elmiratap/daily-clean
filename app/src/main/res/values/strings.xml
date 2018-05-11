@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Daily Clean</string>
+    <string name="item">Item</string>
+    <string name="room">Room</string>
+    <string name="add_item">Add Item</string>
+    <string name="cancel">Cancel</string>
 </resources>

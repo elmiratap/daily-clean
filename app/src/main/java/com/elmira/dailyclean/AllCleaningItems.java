@@ -1,5 +1,7 @@
 package com.elmira.dailyclean;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 
 public class AllCleaningItems extends AppCompatActivity {
+    final Context context = this;
     //    public static String EXTRA_DAILY_CLEANING_ITEM = "com.elmira.dailyclean.EXTRA_DAILY_CLEANING_ITEM";
     private ListView listView;
 
@@ -48,71 +51,39 @@ public class AllCleaningItems extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Room myBedroom = new Room("my bedroom");
-                System.out.println("my bedroom name: " + myBedroom.getName());
-                ArrayList<String> cleaningActions = new ArrayList<>();
-                cleaningActions.add("wash");
-                cleaningActions.add("vacuum");
-                myBedroom.addCleaningItem("floors", cleaningActions);
-
-                SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-                Gson gson = new Gson();
-                String json = gson.toJson(myBedroom);
-                sharedPreferencesEditor.putString("myBedroom", json);
-                sharedPreferencesEditor.apply();
-                Toast.makeText(getBaseContext(), "you added a file!", Toast.LENGTH_SHORT).show();
-
-
-//                File directory;
-//                String fileName = "myfile";
-//                String fileContents = "myfile contents";
-//                if (fileName.isEmpty()) {
-//                    directory = getFilesDir();
-//                } else {
-//                    directory = getDir(fileName, MODE_PRIVATE);
-//                }
-//                File[] files = directory.listFiles();
+                AddItemDialogFragment addItemDialogFragment = new AddItemDialogFragment();
+                addItemDialogFragment.show(getSupportFragmentManager(), "AddItemDialogFragment");
+//                final Dialog dialog = new Dialog(context);
+//                dialog.setContentView(R.layout.dialog_add_item);
+//                dialog.setTitle("Add Item");
+//                Room myBedroom = new Room("my bedroom");
+//                System.out.println("my bedroom name: " + myBedroom.getName());
+//                ArrayList<String> cleaningActions = new ArrayList<>();
+//                cleaningActions.add("wash");
+//                cleaningActions.add("vacuum");
+//                myBedroom.addCleaningItem("floors", cleaningActions);
 //
-//                try {
-//                    FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
-//                    outputStream.write(fileContents.getBytes());
-//                    outputStream.close();
-//                    Toast.makeText(getBaseContext(),"you added a file!", Toast.LENGTH_SHORT).show();
-//                } catch(Exception e) {
-//                    e.printStackTrace();
-//                }
+//                SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+//                Gson gson = new Gson();
+//                String json = gson.toJson(myBedroom);
+//                sharedPreferencesEditor.putString("myBedroom", json);
+//                sharedPreferencesEditor.apply();
+//                Toast.makeText(getBaseContext(), "you added a file!", Toast.LENGTH_SHORT).show();
+
+
             }
         });
-        floatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Gson gson = new Gson();
-                String cleaningDetails = sharedPreferences.getString("myBedroom", "noData");
-                Room myRoom = gson.fromJson(cleaningDetails, Room.class);
-                System.out.println("cleaningDetails: " + cleaningDetails);
-                System.out.println("myRoom: " + myRoom.getName() + ", item1: " + myRoom.getCleaningItems().get("floors").get(0));
-                return true;
-//                try {
-//                    FileInputStream fileIn = openFileInput("myfile");
-//                    InputStreamReader InputRead = new InputStreamReader(fileIn);
-//
-//                    char[] inputBuffer = new char[100];
-//                    String s = "";
-//                    int charRead;
-//
-//                    while ((charRead = InputRead.read(inputBuffer)) > 0) {
-//                        // char to string conversion
-//                        String readstring = String.copyValueOf(inputBuffer, 0, charRead);
-//                        s += readstring;
-//                    }
-//                    InputRead.close();
-//                    Toast.makeText(getBaseContext(), "you read a file!", Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+//        floatingActionButton.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                Gson gson = new Gson();
+//                String cleaningDetails = sharedPreferences.getString("myBedroom", "noData");
+//                Room myRoom = gson.fromJson(cleaningDetails, Room.class);
+//                System.out.println("cleaningDetails: " + cleaningDetails);
+//                System.out.println("myRoom: " + myRoom.getName() + ", item1: " + myRoom.getCleaningItems().get("floors").get(0));
 //                return true;
-            }
-        });
+//            }
+//        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         Menu bottomNavigationMenu = bottomNavigationView.getMenu();
