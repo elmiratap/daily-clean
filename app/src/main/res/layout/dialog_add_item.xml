@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,6 +13,7 @@
         android:hint="@string/item"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/room_edit_text"
         android:layout_width="match_parent"
@@ -23,5 +23,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_edit_text" />
+
+    <CheckBox
+        android:id="@+id/wash_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/wash"
+        app:layout_constraintTop_toBottomOf="@+id/room_edit_text" />
+
+    <CheckBox
+        android:id="@+id/dust_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dust"
+        app:layout_constraintTop_toBottomOf="@+id/wash_checkBox" />
+
+    <CheckBox
+        android:id="@+id/sweep_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sweep"
+        app:layout_constraintTop_toBottomOf="@+id/dust_checkBox" />
+
+    <CheckBox
+        android:id="@+id/vacuum_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vacuum"
+        app:layout_constraintTop_toBottomOf="@+id/sweep_checkBox" />
 
 </android.support.constraint.ConstraintLayout>

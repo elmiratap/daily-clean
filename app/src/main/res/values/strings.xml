@@ -4,4 +4,8 @@
     <string name="room">Room</string>
     <string name="add_item">Add Item</string>
     <string name="cancel">Cancel</string>
+    <string name="wash">Wash</string>
+    <string name="dust">Dust</string>
+    <string name="sweep">Sweep</string>
+    <string name="vacuum">Vacuum</string>
 </resources>
