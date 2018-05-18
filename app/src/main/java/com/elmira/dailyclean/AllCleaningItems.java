@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -46,6 +47,19 @@ public class AllCleaningItems extends AppCompatActivity {
         listView.setAdapter(adapter);
         final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("CleaningData", MODE_PRIVATE);
 
+        // TODO - get data --> ArrayAdapter
+        Map<String, ?> allSharedPrefData = sharedPreferences.getAll();
+        System.out.println("getting shared prefs");
+        for (Map.Entry<String, ?> roomAndItemsToClean : allSharedPrefData.entrySet()) {
+            System.out.println("SP: " + roomAndItemsToClean.getKey() + ": " + roomAndItemsToClean.getValue());
+        }
+
+//                        Gson gson = new Gson();
+//                String cleaningDetails = sharedPreferences.getString("myBedroom", "noData");
+//                Room myRoom = gson.fromJson(cleaningDetails, Room.class);
+//                System.out.println("cleaningDetails: " + cleaningDetails);
+//                System.out.println("myRoom: " + myRoom.getName() + ", item1: " + myRoom.getCleaningItems().get("floors").get(0));
+//                return true;
 
         FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
