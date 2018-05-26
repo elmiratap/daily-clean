@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,21 +38,30 @@ public class AllCleaningItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_cleaning_items);
 
-        listView = (ListView) findViewById(R.id.all_cleaning_items_list_view);
-        String[] dummyData = {"one", "two", "three", "four", "five"};
-        String[] listItems = new String[dummyData.length];
-        for (int i = 0; i < listItems.length; i++) {
-            listItems[i] = dummyData[i];
-        }
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
-        listView.setAdapter(adapter);
+//        listView = (ListView) findViewById(R.id.all_cleaning_items_list_view);
+//        String[] dummyData = {"one", "two", "three", "four", "five"};
+//        String[] listItems = new String[dummyData.length];
+//        for (int i = 0; i < listItems.length; i++) {
+//            listItems[i] = dummyData[i];
+//        }
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
+//        listView.setAdapter(adapter);
+
+
         final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("CleaningData", MODE_PRIVATE);
 
         // TODO - get data --> ArrayAdapter
         Map<String, ?> allSharedPrefData = sharedPreferences.getAll();
         System.out.println("getting shared prefs");
         for (Map.Entry<String, ?> roomAndItemsToClean : allSharedPrefData.entrySet()) {
-            System.out.println("SP: " + roomAndItemsToClean.getKey() + ": " + roomAndItemsToClean.getValue());
+            System.out.println("Shared Pref: " + roomAndItemsToClean.getKey() + ": " + roomAndItemsToClean.getValue());
+        }
+
+
+        ExpandableListView expandableListView = (ExpandableListView)findViewById(R.id.expandable_list_view_parent);
+        if (expandableListView != null) {
+            ParentLevelAdapter parentLevelAdapter = new ParentLevelAdapter(this, allSharedPrefData);
+            expandableListView.setAdapter(parentLevelAdapter);
         }
 
 //                        Gson gson = new Gson();

@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class CleaningItemsMaintenanceService extends IntentService {
     ArrayList<Room> rooms = new ArrayList<>();
@@ -26,7 +27,7 @@ public class CleaningItemsMaintenanceService extends IntentService {
         rooms.add(myBedroom);
         // Do the task here
         Log.i("alarm", "inside CleaningItemsService - onHandleIntent");
-        HashSet<String> actions = rooms.get(0).getCleaningItems().get("floors");
+        Set<String> actions = rooms.get(0).getCleaningItems().get("floors");
         for (String action : actions) {
             Log.i("alarm", action);
         }
