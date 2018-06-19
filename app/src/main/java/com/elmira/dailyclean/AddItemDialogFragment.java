@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class AddItemDialogFragment extends DialogFragment {
     HashSet<String> selectedCleaningActions = new HashSet<>();
@@ -75,7 +77,7 @@ public class AddItemDialogFragment extends DialogFragment {
                         String checkBoxText = checkBox.getText().toString();
                         if (checkBox.isChecked()) {
                             selectedCleaningActions.add(checkBoxText);
-                        } else if(selectedCleaningActions.contains(checkBoxText)) {
+                        } else if (selectedCleaningActions.contains(checkBoxText)) {
                             selectedCleaningActions.remove(checkBoxText);
                         }
                     }
@@ -85,15 +87,17 @@ public class AddItemDialogFragment extends DialogFragment {
                     }
                     if (allFieldsComplete) {
                         Room room = new Room(roomName.toLowerCase());
-                        room.addCleaningItem(item.toLowerCase(), selectedCleaningActions);
                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("CleaningData", Context.MODE_PRIVATE);
-
-                        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
                         Gson gson = new Gson();
+                        if (sharedPreferences.contains(room.getName())) {
+                            String existingRoomData = sharedPreferences.getString(room.getName(), "noData");
+                            room = gson.fromJson(existingRoomData, Room.class);
+                            room.addCleaningItem(item.toLowerCase(), selectedCleaningActions);
+                        }
+                        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
                         String json = gson.toJson(room);
                         sharedPreferencesEditor.putString(roomName.toLowerCase(), json);
                         sharedPreferencesEditor.apply();
-
                         dialog.dismiss();
                     }
                 }
