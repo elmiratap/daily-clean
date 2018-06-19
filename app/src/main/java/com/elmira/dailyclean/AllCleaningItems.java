@@ -24,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
-
 import com.google.gson.Gson;
 
 public class AllCleaningItems extends AppCompatActivity {
@@ -57,8 +56,7 @@ public class AllCleaningItems extends AppCompatActivity {
             System.out.println("Shared Pref: " + roomAndItemsToClean.getKey() + ": " + roomAndItemsToClean.getValue());
         }
 
-
-        ExpandableListView expandableListView = (ExpandableListView)findViewById(R.id.expandable_list_view_parent);
+        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandable_list_view_parent);
         if (expandableListView != null) {
             ParentLevelAdapter parentLevelAdapter = new ParentLevelAdapter(this, allSharedPrefData);
             expandableListView.setAdapter(parentLevelAdapter);

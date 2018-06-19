@@ -62,16 +62,15 @@ public class AddItemDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View view) {
                     boolean allFieldsComplete = true;
-                    String roomName = roomEditText.getText().toString();
-                    String item = itemEditText.getText().toString();
-
-                    if (item.length() < 1) {
-                        allFieldsComplete = false;
-                        Toast.makeText(getActivity(), "Please enter an item to clean", Toast.LENGTH_SHORT).show();
-                    }
-                    if (roomName.length() < 1) {
+                    String roomNameText = roomEditText.getText().toString();
+                    String itemNameText = itemEditText.getText().toString();
+                    if (roomNameText.length() < 1) {
                         allFieldsComplete = false;
                         Toast.makeText(getActivity(), "Please select a room", Toast.LENGTH_SHORT).show();
+                    }
+                    if (itemNameText.length() < 1) {
+                        allFieldsComplete = false;
+                        Toast.makeText(getActivity(), "Please enter an item to clean", Toast.LENGTH_SHORT).show();
                     }
                     for (CheckBox checkBox : checkBoxes) {
                         String checkBoxText = checkBox.getText().toString();
@@ -86,22 +85,37 @@ public class AddItemDialogFragment extends DialogFragment {
                         Toast.makeText(getActivity(), "Please select a cleaning action", Toast.LENGTH_SHORT).show();
                     }
                     if (allFieldsComplete) {
-                        Room room = new Room(roomName.toLowerCase());
+                        String roomName = firstLetterOfEveryWordCapitalized(roomNameText);
+                        String itemName = firstLetterOfEveryWordCapitalized(itemNameText);
+                        Room room = new Room(roomName);
                         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("CleaningData", Context.MODE_PRIVATE);
                         Gson gson = new Gson();
                         if (sharedPreferences.contains(room.getName())) {
                             String existingRoomData = sharedPreferences.getString(room.getName(), "noData");
                             room = gson.fromJson(existingRoomData, Room.class);
-                            room.addCleaningItem(item.toLowerCase(), selectedCleaningActions);
+                            room.addCleaningItem(itemName, selectedCleaningActions);
                         }
                         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
                         String json = gson.toJson(room);
-                        sharedPreferencesEditor.putString(roomName.toLowerCase(), json);
+                        sharedPreferencesEditor.putString(roomName, json);
                         sharedPreferencesEditor.apply();
                         dialog.dismiss();
                     }
                 }
             });
         }
+    }
+
+    private String firstLetterOfEveryWordCapitalized(String word) {
+        StringBuilder stringBuilder = new StringBuilder(word);
+        stringBuilder.setCharAt(0, Character.toUpperCase(word.charAt(0)));
+        for (int i = 1; i < word.length() - 1; i++) {
+            if (word.charAt(i - 1) == ' ') {
+                stringBuilder.setCharAt(i, Character.toUpperCase(word.charAt(i)));
+            } else {
+                stringBuilder.setCharAt(i, word.charAt(i));
+            }
+        }
+        return stringBuilder.toString();
     }
 }
