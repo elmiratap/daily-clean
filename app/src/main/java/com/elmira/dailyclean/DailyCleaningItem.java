@@ -44,11 +44,6 @@ public class DailyCleaningItem extends AppCompatActivity {
             }
         });
         scheduleAlarm();
-//        Intent intent = getIntent();
-//        String randomCleaningItem = intent.getStringExtra(AllCleaningItems.EXTRA_DAILY_CLEANING_ITEM);
-//        System.out.println("DAILY ITEM ==> randomCleaningItem: " + randomCleaningItem);
-//        TextView textView = findViewById(R.id.textView);
-//        textView.setText(randomCleaningItem);
     }
 
     public void scheduleAlarm() {

@@ -25,16 +25,9 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         this.sharedPreferencesData = sharedPreferencesData;
         this.roomName = roomName;
         Gson gson = new Gson();
-        String itemsAndActions = sharedPreferencesData.get(roomName).toString(); // TODO - sketch conversion
+        String itemsAndActions = sharedPreferencesData.get(roomName).toString();
         this.room = gson.fromJson(itemsAndActions, Room.class);
-        this.items = new ArrayList<>(room.getCleaningItems().keySet()); // TODO - may not work
-
-//        Gson gson = new Gson();
-//                String cleaningDetails = sharedPreferences.getString("myBedroom", "noData");
-//                Room myRoom = gson.fromJson(cleaningDetails, Room.class);
-//                System.out.println("cleaningDetails: " + cleaningDetails);
-//                System.out.println("myRoom: " + myRoom.getName() + ", item1: " + myRoom.getCleaningItems().get("floors").get(0));
-
+        this.items = new ArrayList<>(room.getCleaningItems().keySet());
     }
 
     @Override

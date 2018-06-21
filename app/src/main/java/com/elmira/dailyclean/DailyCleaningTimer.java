@@ -19,7 +19,6 @@ public class DailyCleaningTimer extends AppCompatActivity {
         setContentView(R.layout.activity_daily_cleaning_timer);
 
         TextView title = (TextView)findViewById(R.id.daily_cleaning_timer_text);
-        title.setText("this is the timer activity");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Menu bottomNavigationMenu = bottomNavigationView.getMenu();

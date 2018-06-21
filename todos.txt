@@ -1,7 +1,13 @@
 Data:
--Send dummy cleaning item from service --> display on daily cleaning items screen
--User input
-	-Form with room, item, and actions
+-Send cleaning item from service --> display on daily cleaning items screen
+-Form
+	-Determine what causes list expansion to cover other items + fix it
+	-Add checkboxes to allow checking off items --> remove from remaining items to clean
+		- Add honesty check to make sure it was cleaned
+	-Decide how to display already cleaned items (e.g., greyed out, not on list, customizable, etc.)
+	-Specify frequency of cleaning --> only show it once in the given time period (i.e. not all items weighted equally in randomness)
+-Daily cleaning item
+	-Decide how best to store all cleaning items vs. remaining cleaning items
 
 Timer:
 -Show countdown from 5 with cleaning item
