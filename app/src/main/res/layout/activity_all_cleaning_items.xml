@@ -8,8 +8,9 @@
 
     <ExpandableListView
         android:id="@+id/expandable_list_view_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:groupIndicator="@null"/>
     <!--<ListView-->
         <!--android:id="@+id/all_cleaning_items_list_view"-->
         <!--android:layout_width="match_parent"-->

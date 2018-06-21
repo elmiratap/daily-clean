@@ -1,7 +1,6 @@
 package com.elmira.dailyclean;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +26,8 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
         this.roomName = roomName;
         Gson gson = new Gson();
         String itemsAndActions = sharedPreferencesData.get(roomName).toString(); // TODO - sketch conversion
-        room = gson.fromJson(itemsAndActions, Room.class);
-        items = new ArrayList(room.getCleaningItems().keySet()); // TODO - may not work
+        this.room = gson.fromJson(itemsAndActions, Room.class);
+        this.items = new ArrayList<>(room.getCleaningItems().keySet()); // TODO - may not work
 
 //        Gson gson = new Gson();
 //                String cleaningDetails = sharedPreferences.getString("myBedroom", "noData");
@@ -40,7 +39,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        List<String> cleaningActions = new ArrayList(room.getItemCleaningActions(items.get(groupPosition)));
+        List<String> cleaningActions = new ArrayList<>(room.getItemCleaningActions(items.get(groupPosition)));
         return cleaningActions.get(childPosition);
     }
 
@@ -56,7 +55,7 @@ public class SecondLevelAdapter extends BaseExpandableListAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.drawer_list_item, parent, false);
         }
-        TextView textListChild = (TextView) convertView.findViewById(R.id.lblListItem);
+        TextView textListChild = (TextView) convertView.findViewById(R.id.listItem);
         textListChild.setText(childText);
         return convertView;
     }

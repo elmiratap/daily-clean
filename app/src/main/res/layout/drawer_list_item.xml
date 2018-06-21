@@ -4,8 +4,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/lblListItem"
+        android:id="@+id/listItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:drawablePadding="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="10dp"/>
 
 </android.support.constraint.ConstraintLayout>

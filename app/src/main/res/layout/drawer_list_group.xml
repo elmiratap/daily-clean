@@ -3,16 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/expand_indicator"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:src="@drawable/group_state_list" />
+    <!--<ImageView-->
+        <!--android:id="@+id/expand_indicator"-->
+        <!--android:layout_width="15dp"-->
+        <!--android:layout_height="15dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:src="@drawable/group_state_list" />-->
 
     <TextView
         android:id="@+id/list_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:background="?android:attr/activatedBackgroundIndicator"
         android:gravity="center_vertical"
         android:paddingLeft="15dp" />
 
